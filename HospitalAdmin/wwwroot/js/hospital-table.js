@@ -122,6 +122,10 @@
     },
 
     closeAddMenu(context) {
+        $(".add-name").val("");
+        $(".add-patient-count").val("");
+        $(".add-room-count").val("");
+
         context.hideAllCards();
         $('.add-hospital').show();
         context.showCard("table");
