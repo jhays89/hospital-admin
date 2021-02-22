@@ -1,0 +1,55 @@
+﻿.hospital-table-module .message-container {
+    height: 30px;
+}
+
+.hospital-table-module .message-container .hide {
+    display: none;
+}
+
+.hospital-table-module .success {
+    color: #b5e550;
+}
+
+.hospital-table-module .failed {
+    color: #a70000;
+}
+
+.hospital-table-module .add-new-button-container,
+.hospital-table-module .input-container {
+    margin-bottom: 15px;
+}
+
+.hospital-table-module .table-row,
+.hospital-table-module .table-header {
+    display: flex;
+}
+
+.hospital-table-module .table-row .table-column:first-child,
+.hospital-table-module .input-container input:first-child,
+.hospital-table-module .column-name:first-child {
+    width: 50%;
+}
+
+.hospital-table-module .column-name:nth-child(n+2),
+.hospital-table-module .table-row .table-column:nth-child(n+2) {
+    width: 16%;
+}
+
+.hospital-table-module .input-container input:nth-child(n+2) {
+    width: 24%;
+}
+
+
+.hospital-table-module .control:hover {
+    cursor: pointer;
+}
+
+.hospital-table-module .card {
+    padding: 10px;
+}
+
+.hospital-table-module .card.table,
+.hospital-table-module .card.add,
+.hospital-table-module .card.edit {
+    display: none;
+}

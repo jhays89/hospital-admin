@@ -4,10 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HospitalAdmin.Data;
 using HospitalAdmin.Models;
-using HospitalAdmin.Utils;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace HospitalAdmin.ApiControllers
 {
@@ -15,54 +12,82 @@ namespace HospitalAdmin.ApiControllers
     [ApiController]
     public class HospitalsController : ControllerBase
     {
-        private readonly HospitalContext _context;
+        private readonly HospitalContext dbContext;
 
         public HospitalsController(HospitalContext context)
         {
-            _context = context;
+            dbContext = context;
         }
-        // GET: api/<HospitalController>
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            var hospital = new Hospital()
-            {
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                Name = "Greys",
-                PatientCount = 100,
-                OccupiedRoomsCount = 2
-            };
-
-            _context.Hospitals.Add(hospital);
-            _context.SaveChanges();
-
-            return new string[] { "value1", "value2" };
+            var hospitals = dbContext.Hospitals.ToList();
+            return Ok(hospitals);
         }
 
-        // GET api/<HospitalController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<HospitalController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post(HospitalDTO hospitalDTO)
         {
+            try
+            {
+                var hospital = hospitalDTO.CreateHospitalFromDTO(hospitalDTO);
+                hospital.CreatedAt = DateTime.UtcNow;
+                hospital.UpdatedAt = DateTime.UtcNow;
+
+                dbContext.Add(hospital);
+                dbContext.SaveChanges();
+
+                return Ok(hospital);
+            }
+            catch
+            {
+                return Unauthorized();
+            }
         }
 
-        // PUT api/<HospitalController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public IActionResult Put(HospitalDTO hospitalDTO)
         {
+            try
+            {
+                var existingHospital = dbContext.Hospitals.FirstOrDefault(h => h.Id == (int)hospitalDTO.Id);
+
+                if(existingHospital != null)
+                {
+                    hospitalDTO.MapDTOToHospital(hospitalDTO, existingHospital);
+                    existingHospital.UpdatedAt = DateTime.UtcNow;
+
+                    dbContext.SaveChanges();
+
+                    return Ok(existingHospital);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch
+            {
+                return Unauthorized();
+            }
         }
 
-        // DELETE api/<HospitalController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var hospital = dbContext.Hospitals.FirstOrDefault(h => h.Id == id);
+            if (hospital != null)
+            {
+                dbContext.Remove(hospital);
+                dbContext.SaveChanges();
+
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

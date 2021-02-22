@@ -20,6 +20,6 @@ namespace HospitalAdmin.Models
         public int PatientCount { get; set; }
 
         [Range(0, int.MaxValue)]
-        public int OccupiedRoomsCount { get; set; }
+        public int TotalRoomCount { get; set; }
     }
 }

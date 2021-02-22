@@ -1,0 +1,53 @@
+﻿
+<div class="hospital-table-module">
+    <h2>Hosptials</h2>
+    <div class="message-container">
+        <span class="message hide success deletion">Hospital deleted successfully!</span>
+        <span class="message hide success updated">Hospital updated successfully!</span>
+        <span class="message hide success added">Hospital added successfully!</span>
+
+        <span class="message hide failed deletion">Failed to delete hospital</span>
+        <span class="message hide failed updated">Failed to update hospital</span>
+        <span class="message hide failed added">Failed to add hospital</span>
+    </div>
+    <div class="add-new-button-container">
+        <button class="add-hospital app-btn">Add</button>
+    </div>
+    <div class="table-header">
+        <div class="column-name">Name</div>
+        <div class="column-name">Patient Count</div>
+        <div class="column-name">Number of Rooms</div>
+    </div>
+    <div class="card table hospital-table">
+    </div>
+    <div class="card add add-new-container">
+        <div class="input-container">
+            <input placeholder="Hospital Name" class="add-name" type="text" />
+            <input placeholder="Patient Count" class="add-patient-count" type="number" min="0" />
+            <input placeholder="Number of rooms" class="add-room-count" type="number" min="0" />
+        </div>
+        <div class="button-container">
+            <button class="save-hospital app-btn">Add</button>
+            <button class="cancel-add-button app-btn ghost-btn">Cancel</button>
+
+        </div>
+    </div>
+    <div class="card edit update-container">
+        <div class="input-container">
+            <input placeholder="Hospital Name" class="update-name" type="text" />
+            <input placeholder="Patient Count" class ="update-patient-count" type="number" min="0" />
+            <input placeholder="Number of rooms" class="update-room-count" type="number" min="0" />
+        </div>
+        <div class="button-container">
+            <button class="update-hospital app-btn">Update</button>
+            <button class="cancel-update-button app-btn ghost-btn">Cancel</button>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        $.getScript("/js/hospital-table.js");
+    });
+</script>

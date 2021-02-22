@@ -31,6 +31,7 @@ namespace HospitalAdmin
                 try
                 {
                     var context = services.GetRequiredService<HospitalContext>();
+                    DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)
                 {
